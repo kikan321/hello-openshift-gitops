@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: docker.io/openshift/hello-openshift
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  port: 80
+  targetPort: 8080
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
