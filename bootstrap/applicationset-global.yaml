@@ -13,8 +13,10 @@ spec:
               revision: master
               directories:
                 - path: dev/*
-          # Generador 2: Lee todos los clusters seleccionados por RHACM
+          # Generador 2: Lee todos los clusters seleccionados por RHACM (CORREGIDO)
           - clusterDecisionResource:
+              apiVersion: cluster.open-cluster-management.io/v1beta1 # <- FALTABA ESTO
+              kind: Placement # <- FALTABA ESTO
               configMapRef: dev-placement-all
               labelSelector:
                 matchLabels:
