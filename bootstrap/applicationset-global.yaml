@@ -7,15 +7,19 @@ spec:
   generators:
     - matrix:
         generators:
+          # Generador 1: Lee todas las aplicaciones desde Git (carpeta dev/*)
           - git:
               repoURL: "https://github.com/kikan321/hello-openshift-gitops.git"
               revision: "master"
               directories:
                 - path: "dev/*"
-          - clusters:
-              selector:
+          # Generador 2: Lee todos los clusters seleccionados por el Placement de RHACM
+          - clusterDecisionResource:
+              configMapRef: "dev-placement-all"
+              labelSelector:
                 matchLabels:
-                  environment: dev
+                  "cluster.open-cluster-management.io/placement": "dev-placement-all"
+              requeueAfterSeconds: 30
   template:
     metadata:
       name: "{{path.basename}}-{{name}}"
