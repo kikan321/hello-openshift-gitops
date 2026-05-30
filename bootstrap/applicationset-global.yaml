@@ -16,7 +16,6 @@ spec:
           # Generador 2: Lee todos los clusters seleccionados por el Placement de RHACM
           - clusterDecisionResource:
               configMapRef: "dev-placement-all"
-              placementNamespace: "clusters-dev"
               labelSelector:
                 matchLabels:
                   "cluster.open-cluster-management.io/placement": "dev-placement-all"
