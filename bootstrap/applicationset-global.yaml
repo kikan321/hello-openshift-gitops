@@ -15,8 +15,8 @@ spec:
                 - path: dev/*
           # Generador 2: Lee todos los clusters seleccionados por RHACM (CORREGIDO)
           - clusterDecisionResource:
-              apiVersion: cluster.open-cluster-management.io/v1beta1 # <- FALTABA ESTO
-              kind: Placement # <- FALTABA ESTO
+              apiVersion: cluster.open-cluster-management.io/v1beta1
+              kind: Placement
               configMapRef: dev-placement-all
               labelSelector:
                 matchLabels:
