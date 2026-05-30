@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dev-apps
+  namespace: openshift-gitops
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/kikan321/hello-openshift-gitops.git
+        revision: main
+        directories:
+          - path: dev/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      destination:
+        namespace: crc-local
+        server: https://kubernetes.default.svc
+      source:
+        repoURL: https://github.com/kikan321/hello-openshift-gitops.git
+        path: '{{path}}'
+        helm:
+          valueFiles:
+            - values-dev.yaml
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
