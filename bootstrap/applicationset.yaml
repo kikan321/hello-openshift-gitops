@@ -15,7 +15,7 @@ spec:
                 - path: dev/*
           # Generador 2: Lee todos los clusters seleccionados por RHACM
           - clusterDecisionResource:
-              configMapRef: acm-placement
+              configMapRef: dev-placement
               labelSelector:
                 matchLabels:
                   cluster.open-cluster-management.io/placement: dev-placement
