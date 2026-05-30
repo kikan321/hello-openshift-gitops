@@ -19,6 +19,7 @@ spec:
               labelSelector:
                 matchLabels:
                   "cluster.open-cluster-management.io/placement": "dev-placement-all"
+              resource: placementdecisions
               requeueAfterSeconds: 30
   template:
     metadata:
