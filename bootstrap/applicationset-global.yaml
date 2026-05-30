@@ -12,12 +12,10 @@ spec:
               revision: "master"
               directories:
                 - path: "dev/*"
-          - clusterDecisionResource:
-              configMapRef: "dev-placement-all"
-              labelSelector:
+          - clusters:
+              selector:
                 matchLabels:
-                  "cluster.open-cluster-management.io/placement": "dev-placement-all"
-              requeueAfterSeconds: 30
+                  environment: dev
   template:
     metadata:
       name: "{{path.basename}}-{{name}}"
