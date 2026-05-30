@@ -10,7 +10,7 @@ spec:
           # Generador 1: Lee todas las aplicaciones desde Git
           - git:
               repoURL: https://github.com/kikan321/hello-openshift-gitops.git
-              revision: main
+              revision: master
               directories:
                 - path: dev/*
           # Generador 2: Lee todos los clusters seleccionados por RHACM
