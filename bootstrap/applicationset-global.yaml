@@ -13,10 +13,10 @@ spec:
               revision: master
               directories:
                 - path: dev/*
-          # Generador 2: Lee todos los clusters seleccionados por RHACM (CORREGIDO)
+          # Generador 2: Lee todos los clusters seleccionados por RHACM
           - clusterDecisionResource:
               apiVersion: cluster.open-cluster-management.io/v1beta1
-              kind: Placement
+              kind: PlacementDecision
               configMapRef: dev-placement-all
               labelSelector:
                 matchLabels:
@@ -42,3 +42,4 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+EOF
