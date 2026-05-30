@@ -7,39 +7,34 @@ spec:
   generators:
     - matrix:
         generators:
-          # Generador 1: Lee todas las aplicaciones desde Git
           - git:
-              repoURL: https://github.com/kikan321/hello-openshift-gitops.git
-              revision: master
+              repoURL: "https://github.com/kikan321/hello-openshift-gitops.git"
+              revision: "master"
               directories:
-                - path: dev/*
-          # Generador 2: Lee todos los clusters seleccionados por RHACM
+                - path: "dev/*"
           - clusterDecisionResource:
-              apiVersion: cluster.open-cluster-management.io/v1beta1
-              kind: PlacementDecision
-              configMapRef: dev-placement-all
+              configMapRef: "dev-placement-all"
               labelSelector:
                 matchLabels:
-                  cluster.open-cluster-management.io/placement: dev-placement-all
+                  "cluster.open-cluster-management.io/placement": "dev-placement-all"
               requeueAfterSeconds: 30
   template:
     metadata:
-      name: '{{path.basename}}-{{name}}'
+      name: "{{path.basename}}-{{name}}"
     spec:
-      project: default
+      project: "default"
       destination:
-        namespace: '{{name}}'
-        server: '{{server}}'
+        namespace: "{{name}}"
+        server: "{{server}}"
       source:
-        repoURL: https://github.com/kikan321/hello-openshift-gitops.git
-        path: '{{path}}'
+        repoURL: "https://github.com/kikan321/hello-openshift-gitops.git"
+        path: "{{path}}"
         helm:
           valueFiles:
-            - values-dev.yaml
+            - "values-dev.yaml"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
-          - CreateNamespace=true
-EOF
+          - "CreateNamespace=true"
