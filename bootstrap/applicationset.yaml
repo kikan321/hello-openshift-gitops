@@ -1,23 +1,33 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: dev-apps
+  name: dev-matrix
   namespace: openshift-gitops
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/kikan321/hello-openshift-gitops.git
-        revision: main
-        directories:
-          - path: dev/*
+    - matrix:
+        generators:
+          # Generador 1: Lee todas las aplicaciones desde Git
+          - git:
+              repoURL: https://github.com/kikan321/hello-openshift-gitops.git
+              revision: main
+              directories:
+                - path: dev/*
+          # Generador 2: Lee todos los clusters seleccionados por RHACM
+          - clusterDecisionResource:
+              configMapRef: acm-placement
+              labelSelector:
+                matchLabels:
+                  cluster.open-cluster-management.io/placement: dev-placement
+              requeueAfterSeconds: 30
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{path.basename}}-{{name}}'
     spec:
       project: default
       destination:
-        namespace: crc-local
-        server: https://kubernetes.default.svc
+        namespace: '{{name}}'
+        server: '{{server}}'
       source:
         repoURL: https://github.com/kikan321/hello-openshift-gitops.git
         path: '{{path}}'
