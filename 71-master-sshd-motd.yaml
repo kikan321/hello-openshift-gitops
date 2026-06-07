@@ -1,0 +1,19 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: master # 👈 Se aplica solo a nodos master
+  name: 71-master-sshd-motd
+spec:
+  config:
+    ignition:
+      version: 3.4.0 # 👈 Última versión de Ignition para OCP 4.14+
+    storage:
+      files:
+        - contents:
+            source: http://rhgls.domain12.example.com/ssh,motd # 👈 Origen del contenido
+          mode: 292 # 👈 Permisos r--r--r-- convertidos a Octal (444 en decimal = 292 en octal puro de Ignition)
+          overwrite: true # 👈 Overwrite policy true
+          path: /etc/motd # 👈 Ruta del archivo
+          user:
+            name: root
