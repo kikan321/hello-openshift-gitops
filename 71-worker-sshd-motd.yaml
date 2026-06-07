@@ -1,0 +1,19 @@
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker # 👈 Se aplica solo a nodos worker
+  name: 71-worker-sshd-motd
+spec:
+  config:
+    ignition:
+      version: 3.4.0
+    storage:
+      files:
+        - contents:
+            source: http://rhgls.domain12.example.com/ssh,motd
+          mode: 292 
+          overwrite: true
+          path: /etc/motd
+          user:
+            name: root
